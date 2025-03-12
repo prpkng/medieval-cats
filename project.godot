@@ -29,8 +29,13 @@ DSP/dsp_buffer_count=4
 [application]
 
 config/name="MedievalCats"
+run/main_scene="uid://d2xjsdn8q6e8u"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+G="*res://scripts/game_manager.gd"
 
 [display]
 
