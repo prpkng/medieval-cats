@@ -6,7 +6,6 @@ extends Unit
 
 ## Called by the tabletop and runs the unit's turn loop
 func _on_turn():
-	print("turn")
 	await get_tree().create_timer(0.5).timeout
 	
 	send_action.emit(MoveAction.new(dest1))

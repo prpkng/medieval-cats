@@ -1,12 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2xjsdn8q6e8u"]
+[gd_scene load_steps=9 format=3 uid="uid://d2xjsdn8q6e8u"]
 
 [ext_resource type="Script" uid="uid://bmog6w5opq2w0" path="res://scripts/grid_draw.gd" id="1_6elmv"]
 [ext_resource type="Script" uid="uid://cg35520pif184" path="res://scripts/tabletop/tabletop.gd" id="1_noicg"]
 [ext_resource type="Texture2D" uid="uid://owluf1w7ebmc" path="res://assets/art/heroes/heroes_protype.png" id="1_qu0b2"]
+[ext_resource type="Script" uid="uid://begbi6qxwe45n" path="res://scripts/player_input/player_input.gd" id="1_vol8w"]
+[ext_resource type="Script" uid="uid://cdlc0w7sndqyn" path="res://scripts/player_input/hover_overlay.gd" id="3_4f3i4"]
 [ext_resource type="Script" uid="uid://cgawnv7jssegp" path="res://scripts/tabletop/test_unit.gd" id="3_orq0m"]
 [ext_resource type="Texture2D" uid="uid://81d8difb0gvp" path="res://assets/art/enemies/enemy01.png" id="4_my81p"]
+[ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
 
 [node name="Dungeon" type="Node"]
+
+[node name="GridDraw" type="Node2D" parent="."]
+script = ExtResource("1_6elmv")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("1_vol8w")
+
+[node name="Hover Overlay" type="Node2D" parent="PlayerInput"]
+script = ExtResource("3_4f3i4")
 
 [node name="Tabletop" type="Node" parent="."]
 script = ExtResource("1_noicg")
@@ -14,15 +26,13 @@ script = ExtResource("1_noicg")
 [node name="PlayerUnits" type="Node" parent="Tabletop"]
 
 [node name="Player Unit" type="Sprite2D" parent="Tabletop/PlayerUnits"]
-position = Vector2(384, 192)
+position = Vector2(288, 384)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_qu0b2")
 offset = Vector2(128, 96)
 region_enabled = true
 region_rect = Rect2(0, 0, 490, 600)
-script = ExtResource("3_orq0m")
-dest1 = Vector2i(5, 3)
-dest2 = Vector2i(2, 1)
+script = ExtResource("6_q5kms")
 
 [node name="EnemyUnits" type="Node" parent="Tabletop"]
 
@@ -37,5 +47,4 @@ script = ExtResource("3_orq0m")
 dest1 = Vector2i(2, 4)
 dest2 = Vector2i(10, 3)
 
-[node name="GridDraw" type="Node2D" parent="."]
-script = ExtResource("1_6elmv")
+[node name="UI" type="CanvasLayer" parent="."]

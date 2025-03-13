@@ -2,7 +2,6 @@ class_name MoveAction extends Action
 ## Moves the [Unit] to some location
 
 
-
 var dest: Vector2i
 
 func _init(dest: Vector2i):

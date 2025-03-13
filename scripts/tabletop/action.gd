@@ -2,6 +2,8 @@ class_name Action extends Object
 ## The base class for any actions performed during a [Unit]'s turn, such as 
 ## attacking, moving, healing, and so on...
 
+signal completed
+
 ## The base amount to be subtracted from the [Unit]'s action points (can be 
 ## overriden depending on the action proccessing)
 var base_cost: int

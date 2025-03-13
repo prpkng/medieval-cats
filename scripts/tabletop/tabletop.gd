@@ -24,3 +24,4 @@ func unit_turn(unit: Unit):
 			break
 		var cost = await action._apply(unit, self)
 		unit.action_points -= cost
+		action.completed.emit.call_deferred()
