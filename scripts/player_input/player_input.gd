@@ -9,12 +9,14 @@ static var instance: PlayerInput
 @onready var hover_overlay: HoverOverlay = $'Hover Overlay'
 
 var hover_requested := false
+var hover_max_cost := 0
 
 var _hover_overlay_last_position: Vector2i
 var _hover_grid_from: Vector2i
 
 func _ready() -> void:
 	instance = self
+	hover_overlay.player_input = self
 
 func _process(delta: float) -> void:
 	
@@ -24,6 +26,7 @@ func _process(delta: float) -> void:
 		var grid_pos = Vector2i(mouse_pos / G.GRID_SIZE)
 		# If dirty
 		if grid_pos != _hover_overlay_last_position:
+			
 			hover_overlay.enabled = true
 			hover_overlay.grid_pos = grid_pos
 			hover_overlay.from_pos = _hover_grid_from
@@ -39,10 +42,16 @@ func _input(event: InputEvent) -> void:
 		var cell = Vector2i(event.position / G.GRID_SIZE)
 		cell_clicked.emit(cell)
 
-func request_cell_select(from: Vector2i) -> Vector2i:
+func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 	_hover_grid_from = from
 	hover_requested = true
-	var cell: Vector2i = await cell_clicked
+	hover_max_cost = max_cost+1
+	var cell: Vector2i
+	while true:
+		cell = await cell_clicked
+		print(from.distance_to(cell))
+		if from.distance_to(cell) <= max_cost:
+			break
 	hover_requested = false
 	
 	return cell
