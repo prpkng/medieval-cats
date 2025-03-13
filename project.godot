@@ -36,6 +36,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 G="*res://scripts/game_manager.gd"
+Events="*res://scripts/event_bus.gd"
 
 [display]
 
@@ -45,7 +46,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/editor_tools/plugin.cfg")
 
 [rendering]
 
