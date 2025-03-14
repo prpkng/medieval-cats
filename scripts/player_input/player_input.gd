@@ -62,4 +62,3 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 	hover_requested = false
 	
 	return cell
-	

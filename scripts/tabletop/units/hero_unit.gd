@@ -2,20 +2,29 @@ extends Unit
 
 
 func _on_turn():
-	for i in range(2):
-		var action_type = await PlayerInput.instance.request_action_select()
-		
-		
+	action_points = randi_range(2, 6)
+	while true:
+		Events.ui_action_pts_update.emit(action_points)
+		if action_points <= 0:
+			break
 		var action: Action
-		match action_type:
-			ActionTypes.Types.MOVE_ACTION:
-				var cell = await PlayerInput.instance.request_cell_select(grid_position)
-				action = MoveAction.new(cell)
-			ActionTypes.Types.ATTACK_ACTION:
-				var cell = await PlayerInput.instance.request_cell_select(grid_position, 7)
-				action = AttackAction.new(cell)
-			_:
-				assert(false, 'ERROR: unrecognized action type')
+		while true:
+			await get_tree().process_frame
+			var action_type = await PlayerInput.instance.request_action_select()
+			match action_type:
+				ActionTypes.Types.MOVE_ACTION:
+					var cell = await PlayerInput.instance.request_cell_select(grid_position, action_points)
+					action = MoveAction.new(cell)
+				ActionTypes.Types.ATTACK_ACTION:
+					const COST = 2
+					if action_points < COST:
+						print('failed, try again')
+						continue
+					var cell = await PlayerInput.instance.request_cell_select(grid_position, ceili(action_points/2.0))
+					action = AttackAction.new(cell)
+				_:
+					assert(false, 'ERROR: Unrecognized action type')
+			break
 		
 		send_action.emit(action)
 		await action.completed

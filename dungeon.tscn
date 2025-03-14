@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2xjsdn8q6e8u"]
+[gd_scene load_steps=12 format=3 uid="uid://d2xjsdn8q6e8u"]
 
 [ext_resource type="Script" uid="uid://bmog6w5opq2w0" path="res://scripts/grid_draw.gd" id="1_6elmv"]
 [ext_resource type="Script" uid="uid://cg35520pif184" path="res://scripts/tabletop/tabletop.gd" id="1_noicg"]
 [ext_resource type="Texture2D" uid="uid://owluf1w7ebmc" path="res://assets/art/heroes/heroes_protype.png" id="1_qu0b2"]
 [ext_resource type="Script" uid="uid://begbi6qxwe45n" path="res://scripts/player_input/player_input.gd" id="1_vol8w"]
 [ext_resource type="Script" uid="uid://cdlc0w7sndqyn" path="res://scripts/player_input/hover_overlay.gd" id="3_4f3i4"]
+[ext_resource type="Script" uid="uid://dpfn78di5gdye" path="res://scripts/ui/action_points_text.gd" id="3_7wc3a"]
 [ext_resource type="Script" uid="uid://cgawnv7jssegp" path="res://scripts/tabletop/test_unit.gd" id="3_orq0m"]
 [ext_resource type="Texture2D" uid="uid://81d8difb0gvp" path="res://assets/art/enemies/enemy01.png" id="4_my81p"]
 [ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
@@ -40,6 +41,14 @@ offset_right = 124.0
 offset_bottom = 78.0
 text = "Attack Action"
 script = ExtResource("10_kun6q")
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 138.0
+offset_top = 11.0
+offset_right = 178.0
+offset_bottom = 34.0
+text = "1 AP"
+script = ExtResource("3_7wc3a")
 
 [node name="GridDraw" type="Node2D" parent="."]
 position = Vector2(13, 11)
