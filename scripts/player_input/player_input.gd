@@ -42,8 +42,12 @@ func _input(event: InputEvent) -> void:
 		var cell = Vector2i(event.position / G.GRID_SIZE)
 		cell_clicked.emit(cell)
 
-func request_action_select() -> int:
-	return ActionTypes.MOVE_ACTION
+func request_action_select() -> ActionTypes.Types:
+	print("requested")
+	Events.ui_action_select_requested.emit()
+	
+	var action = await Events.ui_action_select_performed
+	return action
 
 func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 	_hover_grid_from = from

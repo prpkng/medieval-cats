@@ -2,6 +2,6 @@
 
 class_name ActionTypes
 
-enum {
+enum Types {
 	%s
 }
