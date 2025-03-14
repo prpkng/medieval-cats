@@ -1,6 +1,8 @@
 class_name HoverOverlay extends Node2D
 ## Creates mouses overlays and other stuff when selecting a grid slot
 
+const FONT = preload('res://monogram.ttf')
+
 const BASE_OVERLAY_COLOR := Color('#fafafa', 0.25)
 const INVALID_OVERLAY_COLOR := Color('#fa0f0f', 0.15)
 const POSSIBLE_GRID_COLOR := Color('#0f0ffa', 0.075)
@@ -45,6 +47,15 @@ func _draw() -> void:
 	
 	# Draw line
 	var pts = interpolated_line([from_pos.x, from_pos.y], [grid_pos.x, grid_pos.y])
+	
+	var median_point = lerp(
+		Vector2(from_pos * G.GRID_SIZE) + Vector2.ONE * G.GRID_SIZE/2.0, 
+		Vector2(grid_pos * G.GRID_SIZE) + Vector2.ONE * G.GRID_SIZE/2.0 + Vector2.UP * 8, 
+		0.5
+	)
+	
+	draw_string(FONT, median_point, '%s' % pts.size(), 0, -1, 32)
+	
 	if pts.size() <= max_cost:
 		for pt in pts:
 			draw_cell(Vector2i(pt[0], pt[1]), BASE_OVERLAY_COLOR)
