@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2xjsdn8q6e8u"]
+[gd_scene load_steps=13 format=3 uid="uid://d2xjsdn8q6e8u"]
 
 [ext_resource type="Script" uid="uid://bmog6w5opq2w0" path="res://scripts/grid_draw.gd" id="1_6elmv"]
 [ext_resource type="Script" uid="uid://cg35520pif184" path="res://scripts/tabletop/tabletop.gd" id="1_noicg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dpfn78di5gdye" path="res://scripts/ui/action_points_text.gd" id="3_7wc3a"]
 [ext_resource type="Script" uid="uid://cgawnv7jssegp" path="res://scripts/tabletop/test_unit.gd" id="3_orq0m"]
 [ext_resource type="Texture2D" uid="uid://81d8difb0gvp" path="res://assets/art/enemies/enemy01.png" id="4_my81p"]
+[ext_resource type="Script" uid="uid://fqcuy6wai8sa" path="res://scripts/ui/unit_select.gd" id="4_uag5o"]
 [ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
 [ext_resource type="Script" uid="uid://dhu6ugdp4vmhr" path="res://scripts/ui/action_select.gd" id="9_tgur7"]
 [ext_resource type="Script" uid="uid://bcd2h0idmldas" path="res://scripts/ui/action_button.gd" id="10_kun6q"]
@@ -50,12 +51,20 @@ offset_bottom = 34.0
 text = "1 AP"
 script = ExtResource("3_7wc3a")
 
+[node name="Unit Select" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_uag5o")
+
 [node name="GridDraw" type="Node2D" parent="."]
 position = Vector2(13, 11)
 script = ExtResource("1_6elmv")
 
-[node name="PlayerInput" type="Node" parent="."]
+[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("tabletop")]
 script = ExtResource("1_vol8w")
+tabletop = NodePath("../Tabletop")
 
 [node name="Hover Overlay" type="Node2D" parent="PlayerInput"]
 position = Vector2(13, 11)

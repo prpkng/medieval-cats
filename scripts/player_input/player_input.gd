@@ -7,6 +7,7 @@ signal cell_clicked(cell: Vector2i)
 static var instance: PlayerInput
 
 @onready var hover_overlay: HoverOverlay = $'Hover Overlay'
+@export var tabletop: Tabletop
 
 var hover_requested := false
 var hover_max_cost := 0
@@ -62,3 +63,15 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 	hover_requested = false
 	
 	return cell
+
+func request_enemies_select():
+	return await request_unit_select(tabletop.get_enemies())
+
+func request_unit_select(group: Node):
+	Events.ui_unit_select_requested.emit(group.get_children() as Array[Unit])
+	var unit = await Events.ui_unit_select_performed
+	
+	print(unit)
+	
+	return unit
+	

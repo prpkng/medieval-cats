@@ -4,6 +4,9 @@ class_name Tabletop extends Node
 ## The two groups of the dungeon, the players and the enemies
 @onready var groups: Array[Node] = [$PlayerUnits, $EnemyUnits]
 
+func get_enemies(): return groups[1]
+func get_players(): return groups[0]
+
 func _ready() -> void:
 	game_loop()
 

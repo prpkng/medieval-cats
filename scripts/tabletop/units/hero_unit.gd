@@ -20,8 +20,8 @@ func _on_turn():
 					if action_points < COST:
 						print('failed, try again')
 						continue
-					var cell = await PlayerInput.instance.request_cell_select(grid_position, ceili(action_points/2.0))
-					action = AttackAction.new(cell)
+					var target = await PlayerInput.instance.request_enemies_select()
+					action = AttackAction.new(target)
 				_:
 					assert(false, 'ERROR: Unrecognized action type')
 			break
