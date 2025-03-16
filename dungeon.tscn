@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2xjsdn8q6e8u"]
+[gd_scene load_steps=14 format=3 uid="uid://d2xjsdn8q6e8u"]
 
 [ext_resource type="Script" uid="uid://bmog6w5opq2w0" path="res://scripts/grid_draw.gd" id="1_6elmv"]
 [ext_resource type="Script" uid="uid://cg35520pif184" path="res://scripts/tabletop/tabletop.gd" id="1_noicg"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
 [ext_resource type="Script" uid="uid://dhu6ugdp4vmhr" path="res://scripts/ui/action_select.gd" id="9_tgur7"]
 [ext_resource type="Script" uid="uid://bcd2h0idmldas" path="res://scripts/ui/action_button.gd" id="10_kun6q"]
+[ext_resource type="Script" uid="uid://bmi31xpclibxg" path="res://scripts/tabletop/unit_hp.gd" id="13_jqckn"]
 
 [node name="Dungeon" type="Node"]
 
@@ -84,6 +85,15 @@ region_enabled = true
 region_rect = Rect2(0, 0, 490, 600)
 script = ExtResource("6_q5kms")
 
+[node name="HP" type="Label" parent="Tabletop/PlayerUnits/Player Unit"]
+offset_left = -64.0
+offset_top = -288.0
+offset_right = 64.0
+offset_bottom = -265.0
+scale = Vector2(4, 4)
+horizontal_alignment = 1
+script = ExtResource("13_jqckn")
+
 [node name="EnemyUnits" type="Node" parent="Tabletop"]
 
 [node name="EnemyUnit" type="Sprite2D" parent="Tabletop/EnemyUnits"]
@@ -96,3 +106,12 @@ region_rect = Rect2(0, 0, 490, 600)
 script = ExtResource("3_orq0m")
 dest1 = Vector2i(2, 4)
 dest2 = Vector2i(10, 3)
+
+[node name="HP" type="Label" parent="Tabletop/EnemyUnits/EnemyUnit"]
+offset_left = -144.0
+offset_top = -288.0
+offset_right = -16.0
+offset_bottom = -265.0
+scale = Vector2(4, 4)
+horizontal_alignment = 1
+script = ExtResource("13_jqckn")
