@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2xjsdn8q6e8u"]
+[gd_scene load_steps=16 format=3 uid="uid://d2xjsdn8q6e8u"]
 
 [ext_resource type="Script" uid="uid://bmog6w5opq2w0" path="res://scripts/grid_draw.gd" id="1_6elmv"]
 [ext_resource type="Script" uid="uid://cg35520pif184" path="res://scripts/tabletop/tabletop.gd" id="1_noicg"]
@@ -10,9 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://81d8difb0gvp" path="res://assets/art/enemies/enemy01.png" id="4_my81p"]
 [ext_resource type="Script" uid="uid://fqcuy6wai8sa" path="res://scripts/ui/unit_select.gd" id="4_uag5o"]
 [ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
+[ext_resource type="Shader" uid="uid://cfpola6g7vxdl" path="res://shaders/outlines.gdshader" id="9_o2cd7"]
 [ext_resource type="Script" uid="uid://dhu6ugdp4vmhr" path="res://scripts/ui/action_select.gd" id="9_tgur7"]
 [ext_resource type="Script" uid="uid://bcd2h0idmldas" path="res://scripts/ui/action_button.gd" id="10_kun6q"]
 [ext_resource type="Script" uid="uid://bmi31xpclibxg" path="res://scripts/tabletop/unit_hp.gd" id="13_jqckn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_av2vf"]
+shader = ExtResource("9_o2cd7")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 7.18
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = false
 
 [node name="Dungeon" type="Node"]
 
@@ -77,6 +86,8 @@ script = ExtResource("1_noicg")
 [node name="PlayerUnits" type="Node" parent="Tabletop"]
 
 [node name="Player Unit" type="Sprite2D" parent="Tabletop/PlayerUnits"]
+material = SubResource("ShaderMaterial_av2vf")
+instance_shader_parameters/enabled = false
 position = Vector2(288, 384)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_qu0b2")

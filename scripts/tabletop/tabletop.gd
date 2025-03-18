@@ -19,10 +19,17 @@ func game_loop(): ## The tabletop event loop
 				await unit_turn(unit as Unit)
 
 ## Asynchronous coroutine for handling the [Unit]'s turn
-func unit_turn(unit: Unit):
+func unit_turn(unit):
 	unit._on_turn()
 	while unit.action_points > 0:
+		if unit is Sprite2D: 
+			# Enable unit outline
+			unit.set_instance_shader_parameter('enabled', true)
 		var action: Action = await unit.send_action
+		if unit is Sprite2D: 
+			# Disable unit outline
+			unit.set_instance_shader_parameter('enabled', false)
+
 		if action == null:
 			break
 		var cost = await action._apply(unit, self)
