@@ -35,31 +35,59 @@ func _draw() -> void:
 	if !enabled or !player_input: return
 	
 	
-	var max_cost = player_input.hover_max_cost-1
+	var max_cost = player_input.hover_max_cost
 	
 	# Compute possibilities
-	var min_cell = from_pos - Vector2i(max_cost-1, max_cost-1)
 	
-	draw_rect(
-		Rect2(min_cell * G.GRID_SIZE, G.GRID_SIZE * (max_cost * 2 - 1) * Vector2.ONE),
-		POSSIBLE_GRID_COLOR
-	)
-	
+	for i in range(max_cost):
+		# Top pyramid
+		var y = from_pos.y - (max_cost - i)+1
+		var count = i
+		draw_rect(
+			Rect2(
+				Vector2(from_pos.x - count, y) * G.GRID_SIZE,
+				Vector2(count*2+1, 1) * G.GRID_SIZE
+			),
+			POSSIBLE_GRID_COLOR
+		)
+
+		if i == max_cost-1: continue
+
+		# Bottom pyramid
+		y = from_pos.y + (max_cost - i)-1
+		count = i
+		draw_rect(
+			Rect2(
+				Vector2(from_pos.x - count, y) * G.GRID_SIZE,
+				Vector2(count*2+1, 1) * G.GRID_SIZE
+			),
+			POSSIBLE_GRID_COLOR
+		)
+
+
+
 	# Draw line
-	var pts = interpolated_line([from_pos.x, from_pos.y], [grid_pos.x, grid_pos.y])
-	
-	var median_point = lerp(
-		Vector2(from_pos * G.GRID_SIZE) + Vector2.ONE * G.GRID_SIZE/2.0, 
-		Vector2(grid_pos * G.GRID_SIZE) + Vector2.ONE * G.GRID_SIZE/2.0 + Vector2.UP * 8, 
-		0.5
-	)
-	
-	draw_string(FONT, median_point, '%s' % pts.size(), 0, -1, 32)
-	
+	var pts = player_input.tabletop.get_grid_path(Vector2i(from_pos.x, from_pos.y), Vector2i(grid_pos.x, grid_pos.y))
+
+
 	if pts.size() <= max_cost:
 		for pt in pts:
-			draw_cell(Vector2i(pt[0], pt[1]), BASE_OVERLAY_COLOR)
+			draw_rect(
+				Rect2(pt, Vector2.ONE * G.GRID_SIZE),
+				BASE_OVERLAY_COLOR
+			)
 		draw_cell(grid_pos, BASE_OVERLAY_COLOR)
 	else:
 		draw_cell(grid_pos, INVALID_OVERLAY_COLOR)
+		
+	pts.remove_at(0)
+	
+	var median_point = lerp(
+		Vector2(from_pos * G.GRID_SIZE),
+		Vector2(grid_pos * G.GRID_SIZE) + Vector2.UP * 8, 
+		0.5
+	)
+	
+	draw_string(FONT, median_point, 'Cost: %s' % pts.size(), 0, -1, 32)
+	
 	

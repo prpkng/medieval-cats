@@ -39,8 +39,9 @@ func _process(delta: float) -> void:
 			hover_overlay.queue_redraw()
 
 func _input(event: InputEvent) -> void:
-	if hover_requested and event is InputEventMouse and event.is_pressed():
+	if hover_requested and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		var cell = Vector2i(event.position / G.GRID_SIZE)
+		if cell == _hover_grid_from: return
 		cell_clicked.emit(cell)
 
 func request_action_select() -> ActionTypes.Types:

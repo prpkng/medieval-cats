@@ -4,11 +4,23 @@ class_name Tabletop extends Node
 ## The two groups of the dungeon, the players and the enemies
 @onready var groups: Array[Node] = [$PlayerUnits, $EnemyUnits]
 
+var astar: AStarGrid2D
+
+
 func get_enemies(): return groups[1]
 func get_players(): return groups[0]
 
 func _ready() -> void:
 	game_loop()
+
+	astar = AStarGrid2D.new()
+	astar.region = Rect2i(0, 0, 32, 32)
+	astar.cell_size = Vector2.ONE * G.GRID_SIZE
+	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	astar.update()
+
+func get_grid_path(from: Vector2i, to: Vector2i) -> PackedVector2Array:
+	return astar.get_point_path(from, to)
 
 func game_loop(): ## The tabletop event loop
 	while true:

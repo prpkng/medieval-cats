@@ -24,3 +24,4 @@ func create_button(unit: Unit, _name: String):
 	btn.global_position = unit.global_position
 	btn.text = _name
 	btn.button_up.connect(unit_selected.bind(unit))
+	btn.size = Vector2.ONE * G.GRID_SIZE
