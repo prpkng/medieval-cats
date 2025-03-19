@@ -15,9 +15,7 @@ func _apply(unit: Unit, _tabletop: Tabletop) -> int:
 	unit.grid_position = target.grid_position
 	await unit.create_tween().tween_property(unit, 'position', dest_pos, 0.3).finished
 	await unit.get_tree().create_timer(0.5).timeout
-	target.health_points -= 2
-	if target.health_points <= 0:
-		target.queue_free()
+	target._apply_damage(2)
 
 	unit.grid_position = start_pos
 	await unit.create_tween().tween_property(unit, 'position', Vector2(start_pos * G.GRID_SIZE), 0.3).finished

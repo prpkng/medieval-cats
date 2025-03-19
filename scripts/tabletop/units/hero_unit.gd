@@ -2,11 +2,12 @@ extends Unit
 
 
 func _on_turn():
-	action_points = randi_range(2, 6)
+	action_points = randi_range(1, 6)
 	while true:
 		Events.ui_action_pts_update.emit(action_points)
 		if action_points <= 0:
 			break
+			
 		var action: Action
 		while true:
 			await get_tree().process_frame

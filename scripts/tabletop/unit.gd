@@ -12,6 +12,7 @@ var grid_position: Vector2i
 func _ready() -> void:
 	grid_position = round(global_position / G.GRID_SIZE)
 
+
 ## Called by the tabletop and runs the unit's turn loop
 func _on_turn():
 	pass
@@ -20,3 +21,5 @@ func _on_turn():
 ## like defense and vulnerability
 func _apply_damage(points: int):
 	health_points -= points
+	if health_points <= 0:
+		queue_free()

@@ -1,3 +1,3 @@
 extends Node
 
-const GRID_SIZE := 96
+const GRID_SIZE := 64
