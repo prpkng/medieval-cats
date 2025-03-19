@@ -19,10 +19,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_av2vf"]
 shader = ExtResource("9_o2cd7")
 shader_parameter/color = Color(0, 1, 0, 1)
-shader_parameter/width = 16.839
+shader_parameter/width = 16.0
 shader_parameter/pattern = 1
 shader_parameter/inside = false
-shader_parameter/add_margins = false
+shader_parameter/add_margins = true
 
 [node name="Dungeon" type="Node"]
 
@@ -88,7 +88,7 @@ script = ExtResource("1_noicg")
 
 [node name="Player Unit" type="Sprite2D" parent="Tabletop/PlayerUnits"]
 material = SubResource("ShaderMaterial_av2vf")
-instance_shader_parameters/enabled = false
+instance_shader_parameters/enabled = true
 position = Vector2(256, 320)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_qu0b2")
