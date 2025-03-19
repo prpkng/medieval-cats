@@ -6,14 +6,15 @@ extends Unit
 
 ## Called by the tabletop and runs the unit's turn loop
 func _on_turn():
+	action_points = 100
 	await get_tree().create_timer(0.5).timeout
 	
-	send_action.emit(MoveAction.new(dest1))
+	var action = MoveAction.new(dest1)
+	send_action.emit(action)
+	await action.completed
 	
-	await get_tree().create_timer(2.5).timeout
-	
-	send_action.emit(MoveAction.new(dest2))
-	
-	await get_tree().create_timer(2.5).timeout
+	action = MoveAction.new(dest2)
+	send_action.emit(action)
+	await action.completed
 	
 	send_action.emit(null)

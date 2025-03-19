@@ -58,8 +58,10 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 	var cell: Vector2i
 	while true:
 		cell = await cell_clicked
-		print(from.distance_to(cell))
-		if from.distance_to(cell) <= max_cost:
+		var pts = tabletop.get_grid_path(from, cell)
+		pts.remove_at(0)
+		print(pts.size())
+		if pts.size() <= max_cost:
 			break
 	hover_requested = false
 	
