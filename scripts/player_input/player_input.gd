@@ -28,14 +28,14 @@ func _process(delta: float) -> void:
 		# If dirty
 		if grid_pos != _hover_overlay_last_position:
 			
-			hover_overlay.enabled = true
+			hover_overlay.mode = hover_overlay.Modes.MOVE_OVERLAY
 			hover_overlay.grid_pos = grid_pos
 			hover_overlay.from_pos = _hover_grid_from
 			hover_overlay.queue_redraw()
 		_hover_overlay_last_position = grid_pos
 	else:
-		if hover_overlay.enabled:
-			hover_overlay.enabled = false
+		if hover_overlay.mode == hover_overlay.Modes.MOVE_OVERLAY:
+			hover_overlay.mode = hover_overlay.Modes.DISABLED
 			hover_overlay.queue_redraw()
 
 func _input(event: InputEvent) -> void:
@@ -70,7 +70,23 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 func request_enemies_select():
 	return await request_unit_select(tabletop.get_enemies())
 
-func request_unit_select(nodes: Array):
+func request_enemies_select_range(from: Vector2i, _range: float):
+	var enemies = tabletop.get_enemies()
+	
+	hover_overlay.mode = hover_overlay.Modes.ATTACK_OVERLAY
+	hover_overlay.attack_range = _range
+	hover_overlay.from_pos = from
+	hover_overlay.queue_redraw()
+	
+	enemies = enemies.filter(func(e: Unit): return e.grid_position.distance_to(from) <= _range)
+	if enemies.size() == 0:
+		return null
+	
+	var result = await request_unit_select(enemies)
+	hover_overlay.mode = hover_overlay.Modes.DISABLED
+	return result
+
+func request_unit_select(nodes: Array) -> Unit:
 	Events.ui_unit_select_requested.emit(nodes)
 	var unit = await Events.ui_unit_select_performed
 	

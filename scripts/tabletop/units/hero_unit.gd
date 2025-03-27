@@ -21,7 +21,9 @@ func _on_turn(tabletop: Tabletop):
 					if action_points < COST:
 						print('failed, try again')
 						continue
-					var target = await PlayerInput.instance.request_enemies_select()
+					var target = await PlayerInput.instance.request_enemies_select_range(grid_position, 4)
+					if target == null:
+						continue
 					action = AttackAction.new(target)
 				_:
 					assert(false, 'ERROR: Unrecognized action type')

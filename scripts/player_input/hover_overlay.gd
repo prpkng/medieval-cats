@@ -7,11 +7,19 @@ const BASE_OVERLAY_COLOR := Color('#fafafa', 0.25)
 const INVALID_OVERLAY_COLOR := Color('#fa0f0f', 0.15)
 const POSSIBLE_GRID_COLOR := Color('#0f0ffa', 0.075)
 
-var enabled := false
+enum Modes {
+	DISABLED,
+	MOVE_OVERLAY,
+	ATTACK_OVERLAY
+}
+
+var mode := Modes.DISABLED
 var player_input: PlayerInput
+
 var grid_pos: Vector2i
 var from_pos: Vector2i
 
+var attack_range: int
 
 func interpolated_line(p0, p1):
 	var points = []
@@ -31,39 +39,37 @@ func draw_cell(pos: Vector2i, clr: Color):
 		clr
 	)
 
-func _draw() -> void:
-	if !enabled or !player_input: return
-	
-	
-	var max_cost = player_input.hover_max_cost
-	
-	# Compute possibilities
-	
-	for i in range(max_cost):
+func draw_range(_range: int, color: Color):
+	for i in range(_range):
 		# Top pyramid
-		var y = from_pos.y - (max_cost - i)+1
+		var y = from_pos.y - (_range - i) + 1
 		var count = i
 		draw_rect(
 			Rect2(
 				Vector2(from_pos.x - count, y) * G.GRID_SIZE,
-				Vector2(count*2+1, 1) * G.GRID_SIZE
+				Vector2(count * 2 + 1, 1) * G.GRID_SIZE
 			),
-			POSSIBLE_GRID_COLOR
+			color
 		)
 
-		if i == max_cost-1: continue
+		if i == _range - 1: continue
 
 		# Bottom pyramid
-		y = from_pos.y + (max_cost - i)-1
+		y = from_pos.y + (_range - i) - 1
 		count = i
 		draw_rect(
 			Rect2(
 				Vector2(from_pos.x - count, y) * G.GRID_SIZE,
-				Vector2(count*2+1, 1) * G.GRID_SIZE
+				Vector2(count * 2 + 1, 1) * G.GRID_SIZE
 			),
-			POSSIBLE_GRID_COLOR
+			color
 		)
 
+func draw_move() -> void:
+	var max_cost = player_input.hover_max_cost
+	
+	# Compute possibilities
+	draw_range(max_cost, POSSIBLE_GRID_COLOR)
 
 
 	# Draw line
@@ -84,10 +90,24 @@ func _draw() -> void:
 	
 	var median_point = lerp(
 		Vector2(from_pos * G.GRID_SIZE),
-		Vector2(grid_pos * G.GRID_SIZE) + Vector2.UP * 8, 
+		Vector2(grid_pos * G.GRID_SIZE) + Vector2.UP * 8,
 		0.5
 	)
 	
 	draw_string(FONT, median_point, 'Cost: %s' % pts.size(), 0, -1, 32)
+
+func draw_attack():
+	draw_range(attack_range, INVALID_OVERLAY_COLOR)
+
+func _draw() -> void:
+	if !player_input: return
+
+	match mode:
+		Modes.DISABLED:
+			return
+		Modes.MOVE_OVERLAY:
+			draw_move()
+		Modes.ATTACK_OVERLAY:
+			draw_attack()
 	
 	
