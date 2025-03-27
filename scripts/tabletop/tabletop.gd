@@ -7,8 +7,8 @@ class_name Tabletop extends Node
 var astar: AStarGrid2D
 
 
-func get_enemies(): return groups[1]
-func get_players(): return groups[0]
+func get_enemies() -> Array: return groups[1].get_children()
+func get_players() -> Array: return groups[0].get_children()
 
 func _ready() -> void:
 	game_loop()
@@ -32,7 +32,7 @@ func game_loop(): ## The tabletop event loop
 
 ## Asynchronous coroutine for handling the [Unit]'s turn
 func unit_turn(unit):
-	unit._on_turn()
+	unit._on_turn(self)
 	while unit.action_points > 0:
 		if unit is Sprite2D: 
 			# Enable unit outline

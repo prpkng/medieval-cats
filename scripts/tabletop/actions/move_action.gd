@@ -8,6 +8,7 @@ func _init(destination: Vector2i):
 	base_cost = 1
 
 func _apply(unit: Unit, tabletop: Tabletop) -> int:
+	print("applied")
 	var points = tabletop.get_grid_path(unit.grid_position, dest)
 	points.remove_at(0)
 

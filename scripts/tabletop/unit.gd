@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 ## Called by the tabletop and runs the unit's turn loop
-func _on_turn():
+func _on_turn(tabletop: Tabletop):
 	pass
 
 ## Applies the given damage to the unit, override this to apply custom behavior

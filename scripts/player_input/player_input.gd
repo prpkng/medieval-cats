@@ -70,8 +70,8 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 func request_enemies_select():
 	return await request_unit_select(tabletop.get_enemies())
 
-func request_unit_select(group: Node):
-	Events.ui_unit_select_requested.emit(group.get_children() as Array[Unit])
+func request_unit_select(nodes: Array):
+	Events.ui_unit_select_requested.emit(nodes)
 	var unit = await Events.ui_unit_select_performed
 	
 	print(unit)

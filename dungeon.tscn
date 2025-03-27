@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://begbi6qxwe45n" path="res://scripts/player_input/player_input.gd" id="1_vol8w"]
 [ext_resource type="Script" uid="uid://cdlc0w7sndqyn" path="res://scripts/player_input/hover_overlay.gd" id="3_4f3i4"]
 [ext_resource type="Script" uid="uid://dpfn78di5gdye" path="res://scripts/ui/action_points_text.gd" id="3_7wc3a"]
-[ext_resource type="Script" uid="uid://cgawnv7jssegp" path="res://scripts/tabletop/test_unit.gd" id="3_orq0m"]
 [ext_resource type="Texture2D" uid="uid://81d8difb0gvp" path="res://assets/art/enemies/enemy01.png" id="4_my81p"]
 [ext_resource type="Script" uid="uid://fqcuy6wai8sa" path="res://scripts/ui/unit_select.gd" id="4_uag5o"]
 [ext_resource type="Script" uid="uid://f2qf2hjunrf" path="res://scripts/tabletop/units/hero_unit.gd" id="6_q5kms"]
@@ -15,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bcd2h0idmldas" path="res://scripts/ui/action_button.gd" id="10_kun6q"]
 [ext_resource type="Texture2D" uid="uid://domx1h2pb4fju" path="res://assets/art/heroes/sword.png" id="12_av2vf"]
 [ext_resource type="Script" uid="uid://bmi31xpclibxg" path="res://scripts/tabletop/unit_hp.gd" id="13_jqckn"]
+[ext_resource type="Script" uid="uid://dtglt0yfhbkh4" path="res://scripts/tabletop/units/enemies/melee_enemy.gd" id="15_av2vf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_av2vf"]
 shader = ExtResource("9_o2cd7")
@@ -113,46 +113,6 @@ scale = Vector2(4, 4)
 horizontal_alignment = 1
 script = ExtResource("13_jqckn")
 
-[node name="Player Unit2" type="Sprite2D" parent="Tabletop/PlayerUnits"]
-material = SubResource("ShaderMaterial_av2vf")
-instance_shader_parameters/enabled = false
-position = Vector2(128, 192)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_qu0b2")
-offset = Vector2(112.5, -17.685)
-region_enabled = true
-region_rect = Rect2(0, 0, 490, 600)
-script = ExtResource("6_q5kms")
-
-[node name="HP" type="Label" parent="Tabletop/PlayerUnits/Player Unit2"]
-offset_left = -64.0
-offset_top = -288.0
-offset_right = 64.0
-offset_bottom = -265.0
-scale = Vector2(4, 4)
-horizontal_alignment = 1
-script = ExtResource("13_jqckn")
-
-[node name="Player Unit3" type="Sprite2D" parent="Tabletop/PlayerUnits"]
-material = SubResource("ShaderMaterial_av2vf")
-instance_shader_parameters/enabled = false
-position = Vector2(128, 576)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_qu0b2")
-offset = Vector2(112.5, -17.685)
-region_enabled = true
-region_rect = Rect2(0, 0, 490, 600)
-script = ExtResource("6_q5kms")
-
-[node name="HP" type="Label" parent="Tabletop/PlayerUnits/Player Unit3"]
-offset_left = -64.0
-offset_top = -288.0
-offset_right = 64.0
-offset_bottom = -265.0
-scale = Vector2(4, 4)
-horizontal_alignment = 1
-script = ExtResource("13_jqckn")
-
 [node name="EnemyUnits" type="Node" parent="Tabletop"]
 
 [node name="EnemyUnit" type="Sprite2D" parent="Tabletop/EnemyUnits"]
@@ -162,9 +122,7 @@ texture = ExtResource("4_my81p")
 offset = Vector2(128, 96)
 region_enabled = true
 region_rect = Rect2(0, 0, 490, 600)
-script = ExtResource("3_orq0m")
-dest1 = Vector2i(8, 3)
-dest2 = Vector2i(10, 3)
+script = ExtResource("15_av2vf")
 
 [node name="HP" type="Label" parent="Tabletop/EnemyUnits/EnemyUnit"]
 offset_left = -144.0

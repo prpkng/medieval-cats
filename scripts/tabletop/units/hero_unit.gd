@@ -1,7 +1,7 @@
 extends Unit
 
 
-func _on_turn():
+func _on_turn(tabletop: Tabletop):
 	action_points = randi_range(1, 6)
 	while true:
 		Events.ui_action_pts_update.emit(action_points)
