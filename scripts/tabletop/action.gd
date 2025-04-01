@@ -13,3 +13,17 @@ var base_cost: int
 func _apply(unit: Unit, tabletop: Tabletop) -> int:
 	await unit.get_tree().create_timer(1).timeout
 	return base_cost
+
+
+## Checks if the given action is suitable to be applied to a unit
+static func can_be_applied(action: ActionTypes.Types, unit: Unit, _tabletop: Tabletop) -> bool:
+	match action:
+		ActionTypes.Types.MELEE_ATTACK_ACTION:
+			const COST = 2
+			if unit.action_points < COST:
+				return false
+		ActionTypes.Types.RANGED_ATTACK_ACTION:
+			const COST = 2
+			if unit.action_points < COST:
+				return false
+	return true
