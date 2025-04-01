@@ -1,7 +1,7 @@
 extends Unit
 
 
-func _on_turn(tabletop: Tabletop):
+func _on_turn(_tabletop: Tabletop):
 	action_points = randi_range(1, 6)
 	while true:
 		Events.ui_action_pts_update.emit(action_points)
@@ -33,3 +33,6 @@ func _on_turn(tabletop: Tabletop):
 		await action.completed
 	
 	send_action.emit(null)
+
+func _on_death():
+	G.hero_died(self)

@@ -22,4 +22,8 @@ func _on_turn(tabletop: Tabletop):
 func _apply_damage(points: int):
 	health_points -= points
 	if health_points <= 0:
-		queue_free()
+		_on_death()
+
+
+func _on_death():
+	pass

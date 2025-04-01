@@ -19,6 +19,8 @@ func _ready() -> void:
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astar.update()
 
+	G.current_tabletop = self
+
 func get_grid_path(from: Vector2i, to: Vector2i) -> PackedVector2Array:
 	return astar.get_point_path(from, to)
 

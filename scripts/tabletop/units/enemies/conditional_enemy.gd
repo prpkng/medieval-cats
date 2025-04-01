@@ -1,4 +1,4 @@
-class_name ConditionalEnemy extends Unit
+class_name ConditionalEnemy extends EnemyUnit
 ## A Enemy class that runs a list of actions by order and conditions
 
 @export var min_ap: int = 2
@@ -20,36 +20,42 @@ class ConditionalBehavior:
 ## [i]NOTE: if null, will be threated as always true[br][/i]
 ## [param apply]: Must be a function taking [Tabletop] as a parameter, returning a integer. Note that this callable [i]may[/i] be async
 func add_behavior(condition: Callable, apply: Callable):
-    _behaviors.append(ConditionalBehavior.new(condition, apply))
+    conditional_behaviors.append(ConditionalBehavior.new(condition, apply))
 
-var _behaviors: Array[ConditionalBehavior]
+## Request a halt of the current execution
+func halt_execution():
+    _halt_requested = true
+
+var conditional_behaviors: Array[ConditionalBehavior]
+var _halt_requested: bool
 
 ## Called by the tabletop and runs the unit's turn loop
 func _on_turn(tabletop: Tabletop):
     action_points = randi_range(min_ap, max_ap)
-    print('ACTION_POINTS: %s' % action_points)
 
-    var could_execute_any := false
+    _halt_requested = false
+    var action_executed_this_run := false
 
     while true:
-        print("conditional turn, AP = %s" % action_points)
         if action_points <= 0:
             break
 
-        could_execute_any = false
+        action_executed_this_run = false
 
-        for behavior in _behaviors:
+        for behavior in conditional_behaviors:
             var condition_result = behavior.condition.call(tabletop) if behavior.condition != null else true
-            assert(condition_result is bool, "ERROR: ConditionalBehavior condition callable MUST return a BOOLEAN value")
+            assert(condition_result is bool, "ERROR: ConditionalBehavior 'condition' callable MUST return a BOOLEAN value")
 
+            # If behavior CAN be executed:
             if condition_result:
                 await behavior.apply.call(tabletop)
-                could_execute_any = true
+                action_executed_this_run = true
                 break
         
-        if not could_execute_any:
+        if not action_executed_this_run or _halt_requested:
             break
-        
+    
+    send_action.emit(null)
         
 
 

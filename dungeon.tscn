@@ -105,11 +105,16 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("12_av2vf")
 
 [node name="HP" type="Label" parent="Tabletop/PlayerUnits/Player Unit"]
-offset_left = -64.0
-offset_top = -288.0
-offset_right = 64.0
-offset_bottom = -265.0
+offset_left = -76.0
+offset_top = -480.0
+offset_right = 52.0
+offset_bottom = -446.0
 scale = Vector2(4, 4)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -5
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 24
+text = "8 HP"
 horizontal_alignment = 1
 script = ExtResource("13_jqckn")
 
@@ -125,11 +130,16 @@ region_rect = Rect2(0, 0, 490, 600)
 script = ExtResource("15_av2vf")
 
 [node name="HP" type="Label" parent="Tabletop/EnemyUnits/EnemyUnit"]
-offset_left = -144.0
-offset_top = -288.0
-offset_right = -16.0
-offset_bottom = -265.0
+offset_left = -76.0
+offset_top = -480.0
+offset_right = 52.0
+offset_bottom = -446.0
 scale = Vector2(4, 4)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -5
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 24
+text = "8 HP"
 horizontal_alignment = 1
 script = ExtResource("13_jqckn")
 
