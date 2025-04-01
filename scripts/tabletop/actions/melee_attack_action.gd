@@ -1,4 +1,4 @@
-class_name AttackAction extends Action
+class_name MeleeAttackAction extends Action
 ## Moves the [Unit] to some location
 
 var target: Unit

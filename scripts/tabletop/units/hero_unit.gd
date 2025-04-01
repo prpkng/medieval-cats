@@ -16,7 +16,7 @@ func _on_turn(_tabletop: Tabletop):
 				ActionTypes.Types.MOVE_ACTION:
 					var cell = await PlayerInput.instance.request_cell_select(grid_position, action_points)
 					action = MoveAction.new(cell)
-				ActionTypes.Types.ATTACK_ACTION:
+				ActionTypes.Types.MELEE_ATTACK_ACTION:
 					const COST = 2
 					if action_points < COST:
 						print('failed, try again')
@@ -24,7 +24,16 @@ func _on_turn(_tabletop: Tabletop):
 					var target = await PlayerInput.instance.request_enemies_select_range(grid_position, 4)
 					if target == null:
 						continue
-					action = AttackAction.new(target)
+					action = MeleeAttackAction.new(target)
+				ActionTypes.Types.RANGED_ATTACK_ACTION:
+					const COST = 2
+					if action_points < COST:
+						print('failed, try again')
+						continue
+					var target = await PlayerInput.instance.request_enemies_select_range(grid_position, -1)
+					if target == null:
+						continue
+					action = RangedAttackAction.new(target)
 				_:
 					assert(false, 'ERROR: Unrecognized action type')
 			break

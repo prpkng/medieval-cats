@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bufiynglnmk32"]
+
+[ext_resource type="Texture2D" uid="uid://b2isegamu4fi4" path="res://assets/art/enemies/arrow.png" id="1_nmv8f"]
+
+[node name="EnemyArrow" type="Sprite2D"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_nmv8f")
+offset = Vector2(358.62, -8.485)

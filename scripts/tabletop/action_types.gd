@@ -3,6 +3,7 @@
 class_name ActionTypes
 
 enum Types {
-	ATTACK_ACTION = 0,
-	MOVE_ACTION = 1
+	MELEE_ATTACK_ACTION = 0,
+	MOVE_ACTION = 1,
+	RANGED_ATTACK_ACTION = 2
 }

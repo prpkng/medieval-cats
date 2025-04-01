@@ -37,22 +37,32 @@ script = ExtResource("9_tgur7")
 
 [node name="MoveAction" type="Button" parent="UI/ActionSelect"]
 layout_mode = 0
-offset_left = 16.0
+offset_left = 13.0
 offset_top = 11.0
-offset_right = 120.0
+offset_right = 124.0
 offset_bottom = 42.0
 text = "Move Action"
 script = ExtResource("10_kun6q")
 action = 1
 
-[node name="AttackAction" type="Button" parent="UI/ActionSelect"]
+[node name="MeleeAtk" type="Button" parent="UI/ActionSelect"]
 layout_mode = 0
 offset_left = 13.0
-offset_top = 47.0
+offset_top = 49.0
 offset_right = 124.0
-offset_bottom = 78.0
-text = "Attack Action"
+offset_bottom = 80.0
+text = "Melee Atk"
 script = ExtResource("10_kun6q")
+
+[node name="RangedAtk" type="Button" parent="UI/ActionSelect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 87.0
+offset_right = 124.0
+offset_bottom = 118.0
+text = "Ranged Atk"
+script = ExtResource("10_kun6q")
+action = 2
 
 [node name="Label" type="Label" parent="UI"]
 offset_left = 138.0
@@ -94,7 +104,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_qu0b2")
 offset = Vector2(170.02, -13.22)
 region_enabled = true
-region_rect = Rect2(440, 0, 512, 600)
+region_rect = Rect2(768, 0, 768, 768)
 script = ExtResource("6_q5kms")
 
 [node name="Sword" type="Sprite2D" parent="Tabletop/PlayerUnits/Player Unit"]

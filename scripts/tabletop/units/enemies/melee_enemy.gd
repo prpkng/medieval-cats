@@ -31,7 +31,7 @@ func attack_behavior(tabletop: Tabletop):
 	
 	await get_tree().process_frame
 	
-	var action = AttackAction.new(target)
+	var action = MeleeAttackAction.new(target)
 	send_action.emit(action)
 
 	await action.completed

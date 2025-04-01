@@ -70,15 +70,17 @@ func request_cell_select(from: Vector2i, max_cost := 3) -> Vector2i:
 func request_enemies_select():
 	return await request_unit_select(tabletop.get_enemies())
 
-func request_enemies_select_range(from: Vector2i, _range: float):
+func request_enemies_select_range(from: Vector2i, _range: int):
 	var enemies = tabletop.get_enemies()
 	
-	hover_overlay.mode = hover_overlay.Modes.ATTACK_OVERLAY
-	hover_overlay.attack_range = _range
-	hover_overlay.from_pos = from
-	hover_overlay.queue_redraw()
+	if _range > 0:
+		hover_overlay.mode = hover_overlay.Modes.ATTACK_OVERLAY
+		hover_overlay.attack_range = _range
+		hover_overlay.from_pos = from
+		hover_overlay.queue_redraw()
 	
-	enemies = enemies.filter(func(e: Unit): return e.grid_position.distance_to(from) <= _range)
+		enemies = enemies.filter(func(e: Unit): return e.grid_position.distance_to(from) <= _range)
+	
 	if enemies.size() == 0:
 		return null
 	
